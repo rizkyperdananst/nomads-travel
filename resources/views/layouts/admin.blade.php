@@ -9,9 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>NOMADS Admin</title>
 
-    @include('includes.style')
+    @include('includes.admin.style')
 
 </head>
 
@@ -21,7 +21,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('includes.sidebar')
+        @include('includes.admin.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -31,7 +31,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('includes.navbar')
+                @include('includes.admin.navbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -42,7 +42,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('includes.footer')
+            @include('includes.admin.footer')
             <!-- End of Footer -->
 
         </div>
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    @include('includes.script')
+    @include('includes.admin.script')
 
 </body>
 

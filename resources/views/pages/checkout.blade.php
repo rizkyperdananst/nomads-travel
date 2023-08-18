@@ -3,7 +3,7 @@
 
 @section('content')
 @push('prepend-style')
-    <link rel="stylesheet" href="./frontend/libraries/gijgo/css/gijgo.min.css">
+    <link rel="stylesheet" href="{{ url('frontend/libraries/gijgo/css/gijgo.min.css') }}">
 @endpush
 
 <main>
@@ -170,12 +170,12 @@
                         </div>
                     </div>
                     <div class="join-container">
-                        <a href="success.html" class="btn d-block btn-join-now mt-3 py-2">
+                        <a href="{{ route('checkout-success') }}" class="btn d-block btn-join-now mt-3 py-2">
                             I Have Made Payment
                         </a>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="details.html" class="text-muted">
+                        <a href="{{ route('detail') }}" class="text-muted">
                             Cancel Booking
                         </a>
                     </div>

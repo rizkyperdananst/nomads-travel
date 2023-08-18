@@ -20,6 +20,7 @@ use App\Http\Controllers\DetailController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/checkout-success', [CheckoutController::class, 'success'])->name('checkout-success');
 
 Route::prefix('/admin')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

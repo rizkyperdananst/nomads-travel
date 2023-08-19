@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('featured_event');
             $table->string('language');
             $table->string('foods');
-            $table->date('defarture_date');
-            $table->string('ducation');
+            $table->date('departure_date');
+            $table->string('duration');
             $table->string('type');
             $table->integer('price');
             $table->softDeletes();

@@ -25,14 +25,14 @@
     </li>
 
     <!-- Nav Item - Gallery Travel -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('admin/gallery*') ? 'active' : '' }}">
         <a class="nav-link pb-0" href="{{ route('gallery.index') }}">
             <i class="fas fa-fw fa-images"></i>
             <span>Gallery Travel</span></a>
     </li>
 
     <!-- Nav Item - Transaksi -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('admin/transaction*') ? 'active' : '' }}">
         <a class="nav-link pb-0" href="{{ route('transaction.index') }}">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Transaksi</span></a>

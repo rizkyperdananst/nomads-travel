@@ -11,29 +11,29 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+    <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+        <a class="nav-link pb-0" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
 
     <!-- Nav Item - Paket Travel -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('travel-package.index') }}">
+    <li class="nav-item {{ Request::is('admin/travel-package*') ? 'active' : '' }}">
+        <a class="nav-link pb-0" href="{{ route('travel-package.index') }}">
             <i class="fas fa-fw fa-hotel"></i>
             <span>Paket Travel</span></a>
     </li>
 
     <!-- Nav Item - Gallery Travel -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('gallery.index') }}">
+    <li class="nav-item">
+        <a class="nav-link pb-0" href="{{ route('gallery.index') }}">
             <i class="fas fa-fw fa-images"></i>
             <span>Gallery Travel</span></a>
     </li>
 
     <!-- Nav Item - Transaksi -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item">
+        <a class="nav-link pb-0" href="{{ route('transaction.index') }}">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Transaksi</span></a>
     </li>

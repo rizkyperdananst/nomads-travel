@@ -103,8 +103,9 @@
                             <button class="btn d-block btn-join-now mt-3 py-2"  type="submit" >
                                 Join Now
                             </button>
-                            @endauth
                         </form>
+                        @endauth
+                        
                         @guest
                             <a href="{{ route('login') }}" class="btn d-block btn-join-now mt-3 py-2">
                                 Login or Register to Join

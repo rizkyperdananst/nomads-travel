@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'Register')
     
 @section('content')
 @push('prepend-style')
@@ -22,16 +22,20 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Please Input Your Credentials!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Please Crete Your Credentials!</h1>
                                     </div>
                                     @error('error')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      </div>
                                     @enderror
-                                    <form action="{{ route('authenticate') }}" method="POST" class="user">
+                                    <form action="{{ route('process.register') }}" method="POST" class="user">
                                         @csrf
+                                        <div class="form-group">
+                                            <input type="name" name="name" class="form-control form-control-user"
+                                                placeholder="Input Name" style="border-radius: 7px">
+                                        </div>
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user"
                                                 placeholder="Input Email" style="border-radius: 7px">
@@ -41,7 +45,7 @@
                                         </div>
                                         
                                         <button class="btn btn-primary btn-user btn-block" style="border-radius: 7px">
-                                            Login
+                                            Register
                                         </button>
                                         <hr>
                                         
@@ -51,7 +55,7 @@
                                         <a class="small" href="#">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                        <a class="small" href="{{ route('login') }}">Have an Account ? Login</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,13 +72,13 @@
 </html>
 @push('script')
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url('backend/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ url('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="{{ url('backend/js/sb-admin-2.min.js') }}"></script>
 @endpush
 @endsection

@@ -98,9 +98,9 @@
                     </div>
                     <div class="join-container">
                         @auth
-                        <form action="" method="POST">
+                        <form action="{{ route('checkout', $travel_package->id) }}" method="POST">
                             @csrf
-                            <button class="btn d-block btn-join-now mt-3 py-2"  type="submit" >
+                            <button class="btn w-100 d-block btn-join-now mt-3 py-2"  type="submit" >
                                 Join Now
                             </button>
                         </form>

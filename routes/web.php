@@ -6,6 +6,7 @@ use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -33,6 +34,10 @@ Route::get('/checkout/confirm/{id}', [CheckoutController::class, 'success'])->na
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout.user');
+
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/process-register', [RegisterController::class, 'process_register'])->name('process.register');
 
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::prefix('/admin')->group(function() {

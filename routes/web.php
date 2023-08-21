@@ -23,9 +23,13 @@ use App\Http\Controllers\Admin\TravelPackageController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/detail', [DetailController::class, 'index'])->name('detail');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::get('/checkout-success', [CheckoutController::class, 'success'])->name('checkout-success');
+Route::get('/detail/{slug}', [DetailController::class, 'index'])->name('detail');
+
+Route::post('/checkout/{id}', [CheckoutController::class, 'process'])->name('checkout.process')->middleware('auth');
+Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+Route::post('/checkout/create/{detail_id}', [CheckoutController::class, 'create'])->name('checkout.create')->middleware('auth');
+Route::get('/checkout/remove/{detail_id}', [CheckoutController::class, 'remove'])->name('checkout.remove')->middleware('auth');
+Route::get('/checkout/confirm/{id}', [CheckoutController::class, 'success'])->name('checkout.success')->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');

@@ -6,7 +6,7 @@
 <header class="text-center">
     <h1>Explore The Beautiful World <br> As Easy One Click</h1>
     <p class="mt-3">You will see beuatiful <br> moment your never see before</p>
-    <a href="#" class="btn btn-get-started px-4 mt-4">Get Started</a>
+    <a href="#populer" class="btn btn-get-started px-4 mt-4">Get Started</a>
 </header>
 <!-- Header -->
 
@@ -50,50 +50,21 @@
     <section class="section-populer-content" id="populer-content">
         <div class="container">
             <div class="section-populer-travel row justify-content-center">
+                @forelse ($travel_packages as $tp)
                 <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card-travel text-center d-flex flex-column" style="background-image: url(./frontend/images/populer-1.jpg);">
-                        <div class="travel-country">INDONESIA</div>
-                        <div class="travel-location">DERATA, BALI</div>
+                    <div class="card-travel text-center d-flex flex-column" style="background-image: url('{{ $tp->galleries->count() ? url('storage/galleries/'. $tp->galleries->first()->image) : '' }}');">
+                        <div class="travel-country">{{ $tp->location }}</div>
+                        <div class="travel-location">{{ $tp->title }}</div>
                         <div class="travel-button mt-auto">
-                            <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
+                            <a href="{{ route('detail', $tp->slug) }}" class="btn btn-travel-details px-4">
                                 View Details
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card-travel text-center d-flex flex-column" style="background-image: url(./frontend/images/populer-2.jpg);">
-                        <div class="travel-country">INDONESIA</div>
-                        <div class="travel-location">BROMO, MALANG</div>
-                        <div class="travel-button mt-auto">
-                            <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card-travel text-center d-flex flex-column" style="background-image: url(./frontend/images/populer-3.jpg);">
-                        <div class="travel-country">INDONESIA</div>
-                        <div class="travel-location">NUSA PENIDA</div>
-                        <div class="travel-button mt-auto">
-                            <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card-travel text-center d-flex flex-column" style="background-image: url(./frontend/images/populer-4.jpg);">
-                        <div class="travel-country">MIDDLE EAST</div>
-                        <div class="travel-location">DUBAI</div>
-                        <div class="travel-button mt-auto">
-                            <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                    <h2>Data Paket Travel Kosong</h2>
+                @endforelse
             </div>
         </div>
     </section>
@@ -177,6 +148,7 @@
                     <a href="#" class="btn btn-need-help px-4 mt-4 mx-1">
                         I Need Help
                     </a>      
+                    {{-- Hyperlink dibawah diisi route register --}}
                     <a href="#" class="btn btn-get-started px-4 mt-4 mx-1">
                         Get Started
                     </a>      

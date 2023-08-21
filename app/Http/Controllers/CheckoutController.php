@@ -13,9 +13,9 @@ class CheckoutController extends Controller
 {
     public function index($id)
     {
-        $transactions = Transaction::with('details', 'travel_packages', 'users')->find($id);
+        $transaction = Transaction::with('details', 'travel_packages', 'users')->find($id);
 
-        return view('pages.checkout', compact('transactions'));
+        return view('pages.checkout', compact('transaction'));
     }
 
     public function process(Request $request, $id)
@@ -54,7 +54,7 @@ class CheckoutController extends Controller
 
         TransactionDetail::create($data);
 
-        $transaction = Transaction::with('travcel_packages')->find($id);
+        $transaction = Transaction::with('travel_packages')->find($id);
 
         if($request->is_visa) {
             $transaction->transaction_total += 190;

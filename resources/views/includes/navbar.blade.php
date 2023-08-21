@@ -53,14 +53,14 @@
                     <form action="{{ route('logout') }}" method="POST" class="form-inline d-sm-block d-md-none">
                         @csrf
                         <button class="btn btn-login my-2 my-sm-0" type="submit">
-                            Masuk
+                            Keluar
                         </button>
                     </form>
                     <!-- Mobile Button -->
                     <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0 d-none d-md-block">
                         @csrf
                         <button class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4" type="submit">
-                            Masuk
+                            Keluar
                         </button>
                     </form>
                     <!-- Desktop Button -->

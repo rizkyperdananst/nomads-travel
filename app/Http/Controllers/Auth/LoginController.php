@@ -20,7 +20,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials) && Auth::user()->roles == 'ADMIN') {
+        if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->route('dashboard');

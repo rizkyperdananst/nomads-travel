@@ -6,8 +6,11 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\TravelPackage;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class CheckoutController extends Controller
 {
@@ -93,6 +96,39 @@ class CheckoutController extends Controller
 
         $transaction->save();
 
-        return view('pages.success');
+        // Set configuration midtrans
+        Config::$serverKey = config('midtrans.serverKey');
+        Config::$isProduction = config('midtrans.isProduction');
+        Config::$isSanitized = config('midtrans.isSanitized');
+        Config::$is3ds = config('midtrans.is3ds');
+
+        // Buat array untuk dikirim ke midtrans
+        $midtrans_params = [
+            'transaction_details' => [
+                'order_id' => 'MIDTRANS-' . $transaction->id,
+                'gross_amount' => (int) $transaction->transaction_total,
+            ],
+
+            'customer_details' => [
+                'first_name' => $transaction->users->name,
+                'email' => $transaction->users->email,
+            ],
+
+            'enabled_payments' => ['gopay'],
+            'vtweb' => [],
+        ];
+
+        try {
+            // Ambil halaman payment midtrans
+            $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
+
+            // Redirect ke halaman midtrans
+            header('Location: ' . $paymentUrl);
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        // return view('pages.success');
     }
 }

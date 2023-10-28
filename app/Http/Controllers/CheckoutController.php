@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
-use App\Models\TravelPackage;
-use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Midtrans\Config;
+use Carbon\Carbon;
 use Midtrans\Snap;
+use Midtrans\Config;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Models\TravelPackage;
+use App\Mail\TransactionSuccess;
+use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -91,44 +93,51 @@ class CheckoutController extends Controller
 
     public function success($id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with('details', 'travel_packages.galleries', 'users')->find($id);
         $transaction->transaction_status = 'PENDING';
 
         $transaction->save();
 
+        // return $transaction;
+
+        // kirim email ke user dan ticketnya
+        Mail::to($transaction->users->email)->send(new TransactionSuccess($transaction));
+
+        return view('pages.success');
+
+
         // Set configuration midtrans
-        Config::$serverKey = config('midtrans.serverKey');
-        Config::$isProduction = config('midtrans.isProduction');
-        Config::$isSanitized = config('midtrans.isSanitized');
-        Config::$is3ds = config('midtrans.is3ds');
+        // Config::$serverKey = config('midtrans.serverKey');
+        // Config::$isProduction = config('midtrans.isProduction');
+        // Config::$isSanitized = config('midtrans.isSanitized');
+        // Config::$is3ds = config('midtrans.is3ds');
 
         // Buat array untuk dikirim ke midtrans
-        $midtrans_params = [
-            'transaction_details' => [
-                'order_id' => 'MIDTRANS-' . $transaction->id,
-                'gross_amount' => (int) $transaction->transaction_total,
-            ],
+        // $midtrans_params = [
+        //     'transaction_details' => [
+        //         'order_id' => 'MIDTRANS-' . $transaction->id,
+        //         'gross_amount' => (int) $transaction->transaction_total,
+        //     ],
 
-            'customer_details' => [
-                'first_name' => $transaction->users->name,
-                'email' => $transaction->users->email,
-            ],
+        //     'customer_details' => [
+        //         'first_name' => $transaction->users->name,
+        //         'email' => $transaction->users->email,
+        //     ],
 
-            'enabled_payments' => ['gopay'],
-            'vtweb' => [],
-        ];
+        //     'enabled_payments' => ['gopay'],
+        //     'vtweb' => [],
+        // ];
 
-        try {
-            // Ambil halaman payment midtrans
-            $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
+        // try {
+        //     // Ambil halaman payment midtrans
+        //     $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
 
-            // Redirect ke halaman midtrans
-            header('Location: ' . $paymentUrl);
+        //     // Redirect ke halaman midtrans
+        //     header('Location: ' . $paymentUrl);
 
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        // } catch (Exception $e) {
+        //     echo $e->getMessage();
+        // }
 
-        // return view('pages.success');
     }
 }

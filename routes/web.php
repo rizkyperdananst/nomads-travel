@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\TravelPackageController;
@@ -49,3 +50,9 @@ Route::middleware(['auth', 'admin'])->group(function() {
         Route::resource('/transaction', TransactionController::class);
     });
 });
+
+// Midtrans
+Route::post('/midtrans/callback', [MidtransController::class, 'notificationHandler'])->name('midtrans.callback');
+Route::get('/midtrans/finish', [MidtransController::class, 'finishRedirect'])->name('midtrans.finish');
+Route::get('/midtrans/unfinish', [MidtransController::class, 'unfinishRedirect'])->name('midtrans.unfinish');
+Route::get('/midtrans/error', [MidtransController::class, 'errorRedirect'])->name('midtrans.error');

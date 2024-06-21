@@ -61,11 +61,11 @@ class MidtransController extends Controller
         // Kirim Email
         if ($transaction) {
             if ($status == 'capture' && $fraud == 'accept') {
-                Mail::to($transaction->user->email)->send(new TransactionSuccess($transaction));
+                Mail::to($transaction->users->email)->send(new TransactionSuccess($transaction));
             } elseif ($status == 'settlement') {
-                Mail::to($transaction->user->email)->send(new TransactionSuccess($transaction));
+                Mail::to($transaction->users->email)->send(new TransactionSuccess($transaction));
             } elseif ($status == 'success') {
-                Mail::to($transaction->user->email)->send(new TransactionSuccess($transaction));
+                Mail::to($transaction->users->email)->send(new TransactionSuccess($transaction));
             } elseif ($status == 'capture' && $fraud == 'challenge') {
                 return response()->json([
                     'meta' => [
